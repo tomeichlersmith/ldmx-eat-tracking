@@ -1,0 +1,8 @@
+denv_name="tracking"
+denv_image="ldmx/pro:v4.4.7"
+denv_shell="/bin/bash -i"
+denv_mounts="/local/cms/user/eichl008/ldmx/eat/v14 "
+denv_env_var_copy_all="true"
+denv_env_var_copy=""
+denv_env_var_set=""
+denv_network="true"
