@@ -1,0 +1,86 @@
+Script started on 2025-08-12 13:57:47-05:00
+keichl008@spa-cms016:~/ldmx/eat/tracking\eichl008@spa-cms016 ~/ldmx/eat/tracking> denv config image ldmx/pro:v4.4.9
+keichl008@spa-cms016:~/ldmx/eat/tracking\eichl008@spa-cms016 ~/ldmx/eat/tracking> denv fire tracking-cfg.py category_trueinclusive_Nevents_100k_MaxTries_1_run_00000.root 
+---- LDMXSW: Loading configuration --------
+Setting detector for tracking to ldmx-det-v14-8gev-no-cals
+Setting detector for tracking to ldmx-det-v14-8gev
+---- LDMXSW: Configuration load complete  --------
+---- LDMXSW: Starting event processing --------
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.pdgID_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.genStatus_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.x_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.y_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.z_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.endX_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.endY_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.endZ_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.endpx_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.endpy_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.endpz_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.processType_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'second.vertexVolume_' is missing when constructing the branch 'SimParticles_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'TaggerSimHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'RecoilSimHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'EcalScoringPlaneHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'HcalScoringPlaneHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'TargetScoringPlaneHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'TrigScintScoringPlaneHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'TrackerScoringPlaneHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'trackID_' is missing when constructing the branch 'MagnetScoringPlaneHits_eat'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'eventNumber_' is missing when constructing the branch 'EventHeader'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'isRealData_' is missing when constructing the branch 'EventHeader'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'intParameters_' is missing when constructing the branch 'EventHeader'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'floatParameters_' is missing when constructing the branch 'EventHeader'. 
+Info in <TBranchElement::InitializeOffsets>: TTree created with an older schema, some data might not be copied in 'slow-cloning' mode; fast-cloning should have the correct result. 'stringParameters_' is missing when constructing the branch 'EventHeader'. 
+[ Process ] -1  warn: Run header for run 1 was not found!
+
+ *** Break *** segmentation violation
+
+
+
+===========================================================
+There was a crash.
+This is the entire stack trace of all threads:
+===========================================================
+#0  0x00007f6d34e417a7 in __GI___wait4 (pid=3423191, stat_loc=stat_loc
+entry=0x7ffcf8bd8fe8, options=options
+entry=0, usage=usage
+entry=0x0) at ../sysdeps/unix/sysv/linux/wait4.c:30
+#1  0x00007f6d34e418eb in __GI___waitpid (pid=<optimized out>, stat_loc=stat_loc
+entry=0x7ffcf8bd8fe8, options=options
+entry=0) at ./posix/waitpid.c:38
+#2  0x00007f6d34d895bb in do_system (line=<optimized out>) at ../sysdeps/posix/system.c:172
+#3  0x00007f6d35524573 in TUnixSystem::StackTrace() () from /usr/local/lib/libCore.so
+#4  0x00007f6d35523ee4 in TUnixSystem::DispatchSignals(ESignals) () from /usr/local/lib/libCore.so
+#5  <signal handler called>
+#6  0x00007f6d32321406 in Acts::Result<std::vector<Acts::TrackProxy<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder, false>, std::allocator<Acts::TrackProxy<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder, false> > >, std::error_code> Acts::CombinatorialKalmanFilter<Acts::Propagator<Acts::EigenStepper<Acts::StepperExtensionList<Acts::DefaultExtension>, Acts::detail::VoidAuctioneer>, Acts::Navigator>, Acts::TrackContainer<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder> >::findTracks<tracking::reco::CKFProcessor::produce(framework::Event&)::SourceLinkAccIt, Acts::GenericBoundTrackParameters<Acts::ParticleHypothesis>, Acts::GenericBoundTrackParameters<Acts::ParticleHypothesis> >(Acts::GenericBoundTrackParameters<Acts::ParticleHypothesis> const&, Acts::CombinatorialKalmanFilterOptions<tracking::reco::CKFProcessor::produce(framework::Event&)::SourceLinkAccIt, Acts::TrackContainer<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder> > const&, Acts::TrackContainer<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder>&) const () from /usr/local/lib/libTracking.so
+#7  0x00007f6d323247a9 in tracking::reco::CKFProcessor::produce(framework::Event&) () from /usr/local/lib/libTracking.so
+#8  0x00007f6d3586af6e in framework::Process::process(int, int, framework::Event&) const () from /usr/local/lib/libFramework.so
+#9  0x00007f6d3586c631 in framework::Process::run() () from /usr/local/lib/libFramework.so
+#10 0x000055b2b281611c in main ()
+===========================================================
+
+
+The lines below might hint at the cause of the crash. If you see question
+marks as part of the stack trace, try to recompile with debugging information
+enabled and export CLING_DEBUG=1 environment variable before running.
+You may get help by asking at the ROOT forum https://root.cern/forum
+preferably using the command (.forum bug) in the ROOT prompt.
+Only if you are really convinced it is a bug in ROOT then please submit a
+report at https://root.cern/bugs or (preferably) using the command (.gh bug) in
+the ROOT prompt. Please post the ENTIRE stack trace
+from above as an attachment in addition to anything else
+that might help us fixing this issue.
+===========================================================
+#6  0x00007f6d32321406 in Acts::Result<std::vector<Acts::TrackProxy<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder, false>, std::allocator<Acts::TrackProxy<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder, false> > >, std::error_code> Acts::CombinatorialKalmanFilter<Acts::Propagator<Acts::EigenStepper<Acts::StepperExtensionList<Acts::DefaultExtension>, Acts::detail::VoidAuctioneer>, Acts::Navigator>, Acts::TrackContainer<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder> >::findTracks<tracking::reco::CKFProcessor::produce(framework::Event&)::SourceLinkAccIt, Acts::GenericBoundTrackParameters<Acts::ParticleHypothesis>, Acts::GenericBoundTrackParameters<Acts::ParticleHypothesis> >(Acts::GenericBoundTrackParameters<Acts::ParticleHypothesis> const&, Acts::CombinatorialKalmanFilterOptions<tracking::reco::CKFProcessor::produce(framework::Event&)::SourceLinkAccIt, Acts::TrackContainer<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder> > const&, Acts::TrackContainer<Acts::VectorTrackContainer, Acts::VectorMultiTrajectory, Acts::detail::RefHolder>&) const () from /usr/local/lib/libTracking.so
+#7  0x00007f6d323247a9 in tracking::reco::CKFProcessor::produce(framework::Event&) () from /usr/local/lib/libTracking.so
+#8  0x00007f6d3586af6e in framework::Process::process(int, int, framework::Event&) const () from /usr/local/lib/libFramework.so
+#9  0x00007f6d3586c631 in framework::Process::run() () from /usr/local/lib/libFramework.so
+#10 0x000055b2b281611c in main ()
+===========================================================
+
+
+keichl008@spa-cms016:~/ldmx/eat/tracking\eichl008@spa-cms016 ~/ldmx/eat/tracking> exit
+exit
+
+Script done on 2025-08-12 13:58:27-05:00
