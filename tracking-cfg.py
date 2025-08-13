@@ -14,6 +14,19 @@ p.maxEvents = args.max_events
 p.inputFiles = [ str(args.input) ]
 p.outputFiles = [ str(output) ]
 
-# v4.4.9
-from LDMX.Tracking import full_tracking_sequence
-p.sequence = full_tracking_sequence.sequence
+# v4.4.7
+from LDMX.Tracking import full_tracking_sequence as tracking
+# dropping truth_tracking to avoid extrapolation error messages
+# (and we don't need it, we want to see how the nominal setup works)
+p.sequence = [
+    tracking.digi_tagger,
+    tracking.seeder_tagger,
+    tracking.tracking_tagger,
+    tracking.greedy_solver_tagger,
+    tracking.GSF_tagger,
+    tracking.digi_recoil,
+    tracking.seeder_recoil,
+    tracking.tracking_recoil,
+    tracking.greedy_solver_recoil,
+    tracking.GSF_recoil
+]
