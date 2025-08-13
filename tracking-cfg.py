@@ -3,10 +3,12 @@ import argparse
 
 parser = argparse.ArgumentParser()
 parser.add_argument('input', type=Path, help='input ROOT file with TaggerSimHits and RecoilSimHits')
+parser.add_argument('--out-dir', type=Path, default=Path.cwd(), help='directory to put output files')
 parser.add_argument('--max-events', type=int, help='limit number of events to process', default=-1)
 args = parser.parse_args()
 
-output = args.input.stem + '_track_yes.root'
+args.out_dir.mkdir(exist_ok = True, parents = True)
+output = args.out_dir / (args.input.stem + '_track_yes.root')
 
 from LDMX.Framework import ldmxcfg
 p = ldmxcfg.Process('track')

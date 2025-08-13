@@ -15,6 +15,7 @@ wheels/
 
 # data files
 **.root
+track-out
 
 # jupyter-lab cache
 .ipynb_checkpoints
