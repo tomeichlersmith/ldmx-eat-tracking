@@ -50,7 +50,7 @@ time denv fire sim-track-no-cal-cfg.py 1 --nevents N
 stat -c '%s' category_inclusivenocals..._nevents_N.root
 ```
 
-First, naive attemp.
+First, naive attempt.
 
   N  |  Time / s | Disk / B
 -----|-----------|--------------
@@ -62,5 +62,29 @@ First, naive attemp.
 100k |  1034.262 | 1 204 167 873
 1M   | 10738.8   | 12 GB <- estimate
 
+Summary Stats using N=1 and 100k samples.
+
+Stat     | / Event | / Run
+---------|---------|-------
+Disk / B | 12 040  | 97 532
+Time / s | 1.02e-2 | 19.07
+
 From this I conclude that I need to save disk space,
-looking at dropping the calorimeter SDs so that empty collections don't waste space.
+dropped many of the SDs that are not helpful in this no-cal setup.
+
+  N  |  Time / s | Disk / B
+-----|-----------|--------------
+1    |    17.289 |        89 656
+10   |    17.248 |       180 240
+100  |    17.796 |     1 094 871
+1k   |    25.074 |    10 979 012
+10k  |   109.444 |   109 717 352
+100k |           | 
+1M   |           | 
+
+Summary Stats using N=1 and 10k samples.
+
+Stat     | / Event | / Run
+---------|---------|-------
+Disk / B | 10 964  | 78 692
+Time / s | 9.21e-3 | 17.28

@@ -32,14 +32,23 @@ p.outputFiles = [str(
     )
 )]
 
-from LDMX.SimCore import simulator, generators
+from LDMX.SimCore import simulator, generators, sensitive_detectors
 sim = simulator.simulator('sim')
 sim.setDetector('ldmx-det-v14-8gev-no-cals', True)
 sim.generators = [
     generators.single_8gev_e_upstream_tagger()
 ]
 sim.description = 'single electron 8gev beam, no calorimeters, no biasing or filtering'
-sim.
+sim.sensitive_detectors = [
+    sensitive_detectors.TrackerSD.tagger(),
+    sensitive_detectors.TrackerSD.recoil(),
+    sensitive_detectors.TrigScintSD.target(),
+    sensitive_detectors.TrigScintSD.pad1(),
+    sensitive_detectors.TrigScintSD.pad2(),
+    sensitive_detectors.TrigScintSD.pad3(),
+    sensitive_detectors.ScoringPlaneSD.tracker(),
+    sensitive_detectors.ScoringPlaneSD.target()
+]
 
 # v4.4.7
 from LDMX.Tracking import full_tracking_sequence as tracking
@@ -58,4 +67,3 @@ p.sequence = [
     tracking.greedy_solver_recoil,
     tracking.GSF_recoil
 ]
-p.pause()
