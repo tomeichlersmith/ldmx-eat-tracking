@@ -1,9 +1,34 @@
 # Tracking Selection for EaT
 
+> [!NOTE]
+> This is my current best example for developing an LDMX physics analysis.
+> What I mean is that the ldmx-sw version I'm using is pinned with `denv`:
+> ```
+> denv init ldmx/pro:<version>
+> ```
+> And the Python version and Python packages I'm using are managed with [`uv`](https://docs.astral.sh/uv/):
+> ```
+> uv init
+> uv add scikit-hep jupyterlab
+> uv python pin
+> ```
+> This setup ensures you get the latest and greatest Python analysis packages while
+> having a stable and pre-built ldmx-sw. You can commit the configuration files produced by `denv` and `uv`
+> to make sure setups on other machines (yours or someone elses) has the same environments for both ldmx-sw and Python.
+> 
+> You would run ldmx-sw configurations with
+> ```
+> denv fire config.py
+> ```
+> And you would do python analysis and figure plotting via `uv`.
+> ```
+> uv run <script>
+> uv run jupyter lab
+> ```
 
 I have not investigated the signal samples, but those (as we talked about in the meeting yesterday) don't need to be as large so we can re-generate them from scratch although I do not know how they will look without the simulation-level mock-tracker filter but including the necessary filter to require a dark brem in the ECal.
-9:42 AM
- For EaT, the signal and background "look the same" in the tagger and recoil trackers, so we could look at generating a large sample that does not include the calorimeters.
+
+For EaT, the signal and background "look the same" in the tagger and recoil trackers, so we could look at generating a large sample that does not include the calorimeters.
 This significantly improves simulation time and saves all the disk space that would keep the ECal/HCal hits.
 After the copy is done, I'll do a few runs of this "no-cal" setup to try to estimate the CPU-time and disk-space requirements for a given EoT.
 
