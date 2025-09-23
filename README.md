@@ -20,7 +20,8 @@
 > ```
 > denv fire config.py
 > ```
-> And you would do python analysis and figure plotting via `uv`.
+> Run single-file ldmx-sw analyzers the same way (see `ana-cfg.py` and `Tracking4EaTStudy.cxx`),
+> and you would do python analysis and figure plotting via `uv`.
 > ```
 > uv run <script>
 > uv run jupyter lab
