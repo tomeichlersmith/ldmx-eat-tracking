@@ -19,3 +19,6 @@ track-out
 
 # jupyter-lab cache
 .ipynb_checkpoints
+
+# built C++ analyzer
+*.so
