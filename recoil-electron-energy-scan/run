@@ -1,0 +1,47 @@
+#/bin/sh
+
+set -o nounset
+set -o errexit
+
+usage() {
+  cat <<HELP
+
+ ./run [do-it]
+
+  If the string 'do-it' is provided, then actually run.
+  Otherwise, just print the commands that would be run in parallel.
+
+HELP
+}
+
+dry_run=true
+while [ $# -gt 0 ]; do
+  case "${1}" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    do-it)
+      dry_run=false
+      ;;
+    *)
+      echo "unrecognized option '${1}'"
+      usage
+      exit 1
+      ;;
+  esac
+  shift
+done
+
+cmd="parallel"
+if ${dry_run}; then
+  echo "mkdir logs"
+  cmd="${cmd} --dry-run"
+else
+  mkdir logs
+fi
+
+${cmd} --joblog logs/parallel.log \
+  'denv fire sim-track-cfg.py {1} {2} &> logs/run-{1}-energy-{2}.out' \
+  ::: 1 \
+  ::: $(seq 1 0.25 7.5)
