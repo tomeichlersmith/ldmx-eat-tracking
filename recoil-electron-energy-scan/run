@@ -1,4 +1,4 @@
-#/bin/sh
+#/bin/bash
 
 set -o nounset
 set -o errexit
@@ -38,10 +38,26 @@ if ${dry_run}; then
   echo "mkdir logs"
   cmd="${cmd} --dry-run"
 else
+  if [ -d logs ]; then
+    echo "error: logs directory already exists, move or remove it if you want to re-run"
+    exit 2
+  fi
   mkdir logs
 fi
 
-${cmd} --joblog logs/parallel.log \
-  'denv fire sim-track-cfg.py {1} {2} &> logs/run-{1}-energy-{2}.out' \
-  ::: 1 \
-  ::: $(seq 1 0.25 7.5)
+cmd="${cmd} --joblog logs/parallel.log"
+cmd="${cmd} denv fire sim-track-cfg.py {1} {2} &> logs/run-{1}-energy-{2}.out"
+cmd="${cmd} ::: 1"
+cmd="${cmd} ::: $(seq 1 0.25 7.5)"
+
+if ${dry_run}; then
+  ${cmd}
+  echo "tail -f --pid=<parallel-pid> logs/parallel.log"
+else
+  ${cmd} &
+  parallel_pid=$!
+  # give parallel time to start a log file
+  sleep 1
+  # watch log file until parallel completes all the jobs
+  tail -f --pid=${parallel_pid} logs/parallel.log
+fi
