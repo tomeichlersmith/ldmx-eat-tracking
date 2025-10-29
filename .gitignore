@@ -15,6 +15,7 @@ wheels/
 
 # data files
 **.root
+**.parquet
 track-out
 
 # jupyter-lab cache
