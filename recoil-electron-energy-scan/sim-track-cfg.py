@@ -19,7 +19,7 @@ from LDMX.Framework import ldmxcfg
 
 p = ldmxcfg.Process( 'eat' )
 p.maxTriesPerEvent = 1
-p.maxEvents = 1000
+p.maxEvents = 10000
 p.termLogLevel = 1
 p.logFrequency = 100
 
