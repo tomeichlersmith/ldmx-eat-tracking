@@ -73,24 +73,24 @@ class Tracking4EaTStudy : public framework::Analyzer {
 
 void Tracking4EaTStudy::onProcessStart() {
   getHistoDirectory();
-  histograms_.create("n_tracks", "N Tracks", 10, -0.5, 9.5);
-  histograms_.create("n_clean_tracks", "N Clean Tracks", 10, -0.5, 9.5);
+  histograms_.create("n_tracks__n_clean_tracks", "N Tracks", 10, -0.5, 9.5, "N Clean Tracks", 10, -0.5, 9.5);
   histograms_.create("sub_leading_momentum", "Sub-Leading p [GeV]", 100, 0, 10);
   histograms_.create("track_state_at_ecal", "Has a ECal Track State", 2, -0.5, 1.5);
   histograms_.create("rec_momentum", "p [GeV]", 100, 0, 10);
   histograms_.create("sim_momentum", "p [GeV]", 100, 0, 10);
   histograms_.create("sim_momentum_no_clean_tracks", "p [GeV]", 100, 0, 10);
-  histograms_.create("rec_momentum_sim_momentum",
+  histograms_.create("rec_momentum__sim_momentum",
       "Sim p [GeV]", 100, 0, 10,
       "Rec p [GeV]", 100, 0, 10);
-  histograms_.create("impact_point",
+  histograms_.create("impact_point_x__y",
       "X [mm]", 200, -200.0, 200.0,
       "Y [mm]", 200, -200.0, 200.0);
 }
 
 void Tracking4EaTStudy::analyze(const framework::Event& event) {
+  const auto& unclean_tracks{event.getCollection<ldmx::Track>("RecoilTracks", "")};
   const auto& clean_tracks{event.getCollection<ldmx::Track>("RecoilTracksClean", "")};
-  histograms_.fill("n_clean_tracks", clean_tracks.size());
+  histograms_.fill("n_tracks__n_clean_tracks", unclean_tracks.size(), clean_tracks.size());
 
   // copy simulation momentum into vector and convert to GeV
   std::vector<double> sim_momentum(3);
@@ -121,7 +121,7 @@ void Tracking4EaTStudy::analyze(const framework::Event& event) {
   auto rec_momentum_mag = mag(trk.getMomentum());
   histograms_.fill("rec_momentum", rec_momentum_mag);
   histograms_.fill("sim_momentum", sim_momentum_mag);
-  histograms_.fill("rec_momentum_sim_momentum", sim_momentum_mag, rec_momentum_mag);
+  histograms_.fill("rec_momentum__sim_momentum", sim_momentum_mag, rec_momentum_mag);
 
   if (tracks.size() > 1) {
     histograms_.fill("sub_leading_momentum", mag(tracks[1]->getMomentum()));
@@ -136,7 +136,7 @@ void Tracking4EaTStudy::analyze(const framework::Event& event) {
   }
 
   auto [x, y] = getImpactPoint(track_at_ecal.value());
-  histograms_.fill("impact_point", x, y);
+  histograms_.fill("impact_point_x__y", x, y);
 }
 
 DECLARE_ANALYZER(Tracking4EaTStudy);
