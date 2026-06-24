@@ -4,7 +4,7 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument('run_number', type=int, help='run number defining RNG seed')
 parser.add_argument('--out-dir', type=Path, default=Path.cwd(), help='directory to put output files')
-parser.add_argument('--nevents', type=int, default=10, help='number of single-electron events to sim')
+parser.add_argument('--nevents', type=int, default=1000000, help='number of single-electron events to sim')
 args = parser.parse_args()
 
 args.out_dir.mkdir(exist_ok = True, parents = True)
@@ -47,7 +47,8 @@ sim.sensitive_detectors = [
     sensitive_detectors.TrigScintSD.pad2(),
     sensitive_detectors.TrigScintSD.pad3(),
     sensitive_detectors.ScoringPlaneSD.tracker(),
-    sensitive_detectors.ScoringPlaneSD.target()
+    sensitive_detectors.ScoringPlaneSD.target(),
+    sensitive_detectors.ScoringPlaneSD.ecal()
 ]
 
 # v4.4.7
