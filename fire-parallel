@@ -1,0 +1,144 @@
+#!/bin/sh
+#  fire-parallel
+#
+# wrap fire with GNU's parallel to do multiple runs using
+# all available cores
+
+set -o nounset
+set -o errexit
+
+usage() {
+  cat <<HELP
+
+ fire-parallel {config.py} [--] parallel ...
+
+  OPTIONS
+    --help|-h : print this help and exit
+    --dry-run : print the jobs that would be run instead of running them
+    --out-dir : specify where the output for the jobs should be stored
+                <out-dir>/logs/ contains the terminal output of each job by sequence number
+                and the parallel joblog. <out-dir>/hists/ contains the output histogram files.
+                <out-dir>/hist.root contains the hadd'ed histogram files.
+    --        : signal that the rest of the arguments should be passed to GNU parallel
+
+  ARGUMENTS
+    config.py : configuration script to pass to fire for the parallel jobs
+    parallel  : all other arguments are passed to GNU parallel. Most commonly, these
+                are the arguments specifying the values for the template (e.g. '::: 1 2 3').
+                More detail on how to specify these values can be seen in the GNU parallel
+                manual[0].
+
+    [0]: https://www.gnu.org/software/parallel/man.html
+
+  EXAMPLE
+
+    The following runs 6 copies of 'fire config.py N' in parallel where N
+    is 10, 11, 12, 13, 14, or 15. The terminal output of these jobs is
+    saved in the "logs" directory and are named after their "sequence number"
+    according to parallel.
+
+      fire-parallel config.py ::: 10 11 12 13 14 15
+
+HELP
+}
+
+dry_run=false
+out_dir="out"
+config=""
+template_args=""
+while [ $# -gt 0 ]; do
+  case "${1}" in
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    --dry-run)
+      dry_run=true
+      ;;
+    --out-dir)
+      shift
+      if [ $# -eq 0 ]; then
+        echo "error: the '--out-dir' option requires an argument after it"
+        exit 1
+      fi
+      out_dir="${1}"
+      ;;
+    --)
+      # user wants the following arguments to be given to GNU parallel
+      shift
+      break
+      ;;
+    "::"*)
+      # obviously a GNU parallel arg, break
+      break
+      ;;
+    *)
+      if [ "${config}" = "" ]; then
+        config="${1}"
+      else
+        echo "error: more than one config provided"
+        exit 1 
+      fi
+      ;;
+  esac
+  shift
+done
+
+out_dir="${out_dir}-$(git rev-parse --short=8 HEAD)"
+
+# we left the while loop when encountering the break argument '--'
+# or the first obvious GNU parallel argument (starting with '::'),
+# so the rest of the command line arguments are the GNU parallel
+# arguments
+parallel_args="$*"
+if [ -z "${parallel_args}" ]; then
+  echo "error: providing 'parallel' arguments to specify the command line values is required"
+  exit 1
+fi
+
+if [ -z "${config}" ] || [ ! -f "${config}" ]; then
+  echo "error: the config script argument is required"
+  exit 3
+fi
+
+cmd="parallel"
+if ${dry_run}; then
+  if [ -d "${out_dir}" ]; then
+    echo "warning: actual run would fail here because the output directory '${out_dir}' already exists"
+  fi
+  echo "mkdir \"${out_dir}\""
+  echo "mkdir \"${out_dir}/logs\""
+  echo "mkdir \"${out_dir}/hists\""
+  cmd="${cmd} --dry-run"
+else
+  if [ -d "${out_dir}" ]; then
+    echo "error: output directory '${out_dir}' already exists"
+    exit 4
+  fi
+  mkdir "${out_dir}"
+  mkdir "${out_dir}/logs"
+  mkdir "${out_dir}/hists"
+fi
+
+cmd="${cmd} --joblog ${out_dir}/logs/parallel.log"
+cmd="${cmd} denv fire ${config} {} --output ${out_dir}/hists/hist-{#}.root"
+cmd="${cmd} &> ${out_dir}/logs/job-{#}.out"
+cmd="${cmd} ${parallel_args}"
+
+if ${dry_run}; then
+  echo ${cmd}
+  ${cmd}
+  echo "tail -f --pid=<parallel-pid> ${out_dir}/logs/parallel.log"
+  echo "hadd \"${out_dir}/hist.root\" \"${out_dir}/hists/\"*"
+else
+  ${cmd} &
+  parallel_pid=$!
+  # wait until log file appears
+  while ! [ -f "${out_dir}/logs/parallel.log" ]; do
+    sleep 1
+  done
+  # watch log file until parallel completes all the jobs
+  tail --follow --pid="${parallel_pid}" "${out_dir}/logs/parallel.log"
+  # attempt to merge the histogram files
+  hadd "${out_dir}/hist.root" "${out_dir}/hists/"*
+fi
