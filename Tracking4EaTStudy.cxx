@@ -2,6 +2,8 @@
 
 #include <functional>
 
+#include "SimCore/Event/SimTrackerHit.h"
+#include "DetDescr/SimSpecialID.h"
 #include "Tracking/Event/Track.h"
 
 template<typename T>
@@ -91,11 +93,22 @@ void Tracking4EaTStudy::analyze(const framework::Event& event) {
   histograms_.fill("n_clean_tracks", clean_tracks.size());
 
   // copy simulation momentum into vector and convert to GeV
-  std::vector<double> sim_momentum = {
-    event.getObject<double>("PEFFPx", "eat")/1000,
-    event.getObject<double>("PEFFPy", "eat")/1000,
-    event.getObject<double>("PEFFPz", "eat")/1000
-  };
+  std::vector<double> sim_momentum(3);
+  const auto& ecal_sp_hits{event.getCollection<ldmx::SimTrackerHit>("EcalScoringPlaneHits", "")};
+  for (const auto& hit : ecal_sp_hits) {
+    ldmx::SimSpecialID hit_id(hit.getID());
+    // Plane 31 is the ECal front face; require forward-going particle
+    if (hit_id.plane() != 31) continue;
+    const auto& p = hit.getMomentum();
+    if (p[2] <= 0) continue;
+    // Only the primary beam electron
+    if (hit.getTrackID() != 1 || hit.getPdgID() != 11) continue;
+    sim_momentum = {
+      p[0] / 1000,
+      p[1] / 1000,
+      p[2] / 1000
+    };
+  }
   auto sim_momentum_mag = mag(sim_momentum);
 
   if (clean_tracks.size() == 0) {
@@ -124,7 +137,6 @@ void Tracking4EaTStudy::analyze(const framework::Event& event) {
 
   auto [x, y] = getImpactPoint(track_at_ecal.value());
   histograms_.fill("impact_point", x, y);
-
 }
 
 DECLARE_ANALYZER(Tracking4EaTStudy);
