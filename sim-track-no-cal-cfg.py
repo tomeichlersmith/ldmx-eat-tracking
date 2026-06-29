@@ -26,8 +26,8 @@ p.outputFiles = [str(
         '_'.join([
             'category', 'inclusivenocals',
             'beam', '8gev',
-            'run', str(p.run),
-            'nevents', string_counts(p.maxEvents)
+            'nevents', string_counts(p.maxEvents),
+            'run', f'{p.run:04d}'
         ])+'.root'
     )
 )]
@@ -50,7 +50,7 @@ sim.sensitive_detectors = [
     sensitive_detectors.ScoringPlaneSD.target(),
     sensitive_detectors.ScoringPlaneSD.ecal()
 ]
-sim.beamSpotSmear = [20., 80., 0.] #mm
+sim.beamSpotSmear = [20.0, 80.0, 0.0] # mm
 
 # v4.4.7
 from LDMX.Tracking import full_tracking_sequence as tracking
