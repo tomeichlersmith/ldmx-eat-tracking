@@ -79,6 +79,7 @@ void Tracking4EaTStudy::onProcessStart() {
   histograms_.create("rec_momentum", "p [GeV]", 100, 0, 10);
   histograms_.create("sim_momentum", "p [GeV]", 100, 0, 10);
   histograms_.create("sim_momentum_no_clean_tracks", "p [GeV]", 100, 0, 10);
+  histograms_.create("clean_tracks_n_hits", "N Hits in Clean Tracks", 11, -0.5, 10.5);
   histograms_.create("rec_momentum__sim_momentum",
       "Sim p [GeV]", 100, 0, 10,
       "Rec p [GeV]", 100, 0, 10);
@@ -91,6 +92,9 @@ void Tracking4EaTStudy::analyze(const framework::Event& event) {
   const auto& unclean_tracks{event.getCollection<ldmx::Track>("RecoilTracks", "")};
   const auto& clean_tracks{event.getCollection<ldmx::Track>("RecoilTracksClean", "")};
   histograms_.fill("n_tracks__n_clean_tracks", unclean_tracks.size(), clean_tracks.size());
+  for (const auto& track : clean_tracks) {
+    histograms_.fill("clean_tracks_n_hits", track.getNhits());
+  }
 
   // copy simulation momentum into vector and convert to GeV
   std::vector<double> sim_momentum(3);
