@@ -50,6 +50,7 @@ sim.sensitive_detectors = [
     sensitive_detectors.ScoringPlaneSD.target(),
     sensitive_detectors.ScoringPlaneSD.ecal()
 ]
+sim.beamSpotSmear = [20., 80., 0.] #mm
 
 # v4.4.7
 from LDMX.Tracking import full_tracking_sequence as tracking
