@@ -23,3 +23,6 @@ track-out
 
 # built C++ analyzer
 *.so
+
+# output from fire-parallel
+out-*
