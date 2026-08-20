@@ -13,6 +13,10 @@ to v4.4.7 ldmx-sw since that is the version used to create a 10M EoT sample used
 for initial analysis. The backport is unfortunately necessary since v4.4.8 introduced
 a breaking change to the on-disk format of the event data model, making it difficult
 to read files produced by the old version with a newer version of ldmx-sw.
+I am planning to use the newer version of ldmx-sw that includes this feature to do
+both the "stage one" simulation that is tracking-only and the "stage two" simulation
+of the calorimters in order to hopefully scale-up the EoT more seamlessly with a
+pre-compiled ldmx-sw in a container image.
 
 ## Backport v4.4.7
 In order to be able to use this feature on the old v4.4.7-produced file,
