@@ -26,5 +26,21 @@ sim.generators = [
         select_planes=[31]
     )
 ]
-p.sequence = [sim]
+
+# Load the ECAL modules
+import LDMX.Ecal.EcalGeometry
+import LDMX.Ecal.ecal_hardcoded_conditions
+import LDMX.Ecal.digi as ecal_digi
+
+# Load the HCAL modules
+import LDMX.Hcal.HcalGeometry
+import LDMX.Hcal.hcal_hardcoded_conditions
+import LDMX.Hcal.digi as hcal_digi
+p.sequence = [
+    sim,
+    ecal_digi.EcalDigiProducer(),
+    ecal_digi.EcalRecProducer(), 
+    hcal_digi.HcalDigiProducer(),
+    hcal_digi.HcalRecProducer()
+]
 p.pause()
