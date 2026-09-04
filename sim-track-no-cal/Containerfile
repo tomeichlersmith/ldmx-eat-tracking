@@ -1,0 +1,2 @@
+FROM ldmx/pro:v4.8.2
+COPY CMakeLists.txt chelsea-code/ldmx/EAT_Tracking/TrackAnalyzer.cxx /code/
