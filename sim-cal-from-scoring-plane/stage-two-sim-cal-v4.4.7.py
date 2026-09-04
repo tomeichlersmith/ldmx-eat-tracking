@@ -2,14 +2,16 @@ import argparse
 from pathlib import Path
 parser = argparse.ArgumentParser()
 parser.add_argument("input_file", type=Path, help="input file with no-cal sim")
+parser.add_argument("sim_index", type=int, help="index for seeding the sim")
 args = parser.parse_args()
 
 from LDMX.Framework import ldmxcfg
 p = ldmxcfg.Process('simcal')
 p.inputFiles = [str(args.input_file)]
-p.outputFiles = [str(args.input_file.stem) + "_with_cal.root"]
+p.outputFiles = [str(args.input_file.stem) + f"_with_cal_{args.sim_index:03d}.root"]
 p.logFrequency = 1
 p.logger.termLevel = 1
+p.randomNumberSeedService.external(args.sim_index)
 
 import LDMX.Ecal.EcalGeometry
 import LDMX.Hcal.HcalGeometry
@@ -19,6 +21,7 @@ sim.setDetector("ldmx-det-v14-8gev")
 
 from LDMX.SimCore.generators import FromScoringPlane
 sim.description = "sim calorimeters using scoring plane hits from previous no-cal sim"
+sim.multiSimIndex = args.sim_index
 sim.generators = [
     FromScoringPlane(
         coll_name='EcalScoringPlaneHits',
