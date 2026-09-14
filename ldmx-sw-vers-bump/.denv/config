@@ -1,0 +1,8 @@
+denv_name="ldmx-sw-vers-bump"
+denv_image="ldmx/pro:v4.8.2"
+denv_shell="/bin/bash -i"
+denv_mounts="/export/scratch "
+denv_env_var_copy_all="true"
+denv_env_var_copy=""
+denv_env_var_set=""
+denv_network="true"
