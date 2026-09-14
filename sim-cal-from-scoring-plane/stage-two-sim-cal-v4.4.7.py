@@ -3,12 +3,13 @@ from pathlib import Path
 parser = argparse.ArgumentParser()
 parser.add_argument("input_file", type=Path, help="input file with no-cal sim")
 parser.add_argument("sim_index", type=int, help="index for seeding the sim")
+parser.add_argument("--output-dir", type=Path, help="output directory")
 args = parser.parse_args()
 
 from LDMX.Framework import ldmxcfg
 p = ldmxcfg.Process('simcal')
 p.inputFiles = [str(args.input_file)]
-p.outputFiles = [str(args.input_file.stem) + f"_with_cal_{args.sim_index:03d}.root"]
+p.outputFiles = [str(args.output_dir / (str(args.input_file.stem) + f"_with_cal_{args.sim_index:03d}.root"))]
 p.randomNumberSeedService.external(args.sim_index)
 
 import LDMX.Ecal.EcalGeometry

@@ -73,7 +73,12 @@ while [ $# -gt 0 ]; do
       break
       ;;
     *)
-      config="${config} ${1}"
+      if [ -z "${config}" ]; then
+        config="${1}"
+      else
+        echo "error: config script already defined to '${config}'"
+        exit 1
+      fi
       ;;
   esac
   shift
@@ -104,6 +109,7 @@ if ${dry_run}; then
   echo "mkdir \"${out_dir}\""
   echo "mkdir \"${out_dir}/logs\""
   echo "mkdir \"${out_dir}/hists\""
+  echo "mkdir \"${out_dir}/events\""
   cmd="${cmd} --dry-run"
 else
   if [ -d "${out_dir}" ]; then
@@ -113,10 +119,11 @@ else
   mkdir "${out_dir}"
   mkdir "${out_dir}/logs"
   mkdir "${out_dir}/hists"
+  mkdir "${out_dir}/events"
 fi
 
 cmd="${cmd} --joblog ${out_dir}/logs/parallel.log"
-cmd="${cmd} denv fire ${config} {}"
+cmd="${cmd} denv fire ${config} --output-dir ${out_dir}/events {}"
 cmd="${cmd} &> ${out_dir}/logs/job-{#}.out"
 cmd="${cmd} ${parallel_args}"
 
