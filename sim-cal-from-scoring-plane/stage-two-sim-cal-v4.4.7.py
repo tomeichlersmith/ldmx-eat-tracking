@@ -9,8 +9,6 @@ from LDMX.Framework import ldmxcfg
 p = ldmxcfg.Process('simcal')
 p.inputFiles = [str(args.input_file)]
 p.outputFiles = [str(args.input_file.stem) + f"_with_cal_{args.sim_index:03d}.root"]
-p.logFrequency = 1
-p.logger.termLevel = 1
 p.randomNumberSeedService.external(args.sim_index)
 
 import LDMX.Ecal.EcalGeometry
@@ -46,4 +44,3 @@ p.sequence = [
     hcal_digi.HcalDigiProducer(),
     hcal_digi.HcalRecProducer()
 ]
-p.pause()

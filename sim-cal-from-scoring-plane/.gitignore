@@ -1,2 +1,6 @@
 ldmx-sw
 .denv
+
+# log files
+*.out
+*.log
