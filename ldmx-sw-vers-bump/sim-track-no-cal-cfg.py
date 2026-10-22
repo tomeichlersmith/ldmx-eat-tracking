@@ -21,7 +21,7 @@ from LDMX.Framework import ldmxcfg
 p = ldmxcfg.Process('simtrk')
 p.run = args.run_number
 p.max_events = args.nevents
-p.__dict__['log_performance'] = True
+p.log_performance = True
 p.histogram_file = 'performance-log.root'
 p.output_files = [str(
     args.out_dir / (
@@ -36,7 +36,7 @@ p.output_files = [str(
 
 from LDMX.SimCore import simulator, generators, sensitive_detectors
 sim = simulator.Simulator('sim')
-sim.set_detector('ldmx-det-v14-8gev-no-cals', True)
+sim.set_detector('ldmx-det-v15-8gev-no-cals', True)
 sim.generators = [
     generators.single_8gev_e_upstream_tagger()
 ]
@@ -53,11 +53,22 @@ sim.sensitive_detectors = [
     sensitive_detectors.ScoringPlaneSD.ecal()
 ]
 
-# v4.4.7
 from LDMX.Tracking.full_tracking_sequence import full_tracking_sequence
+
+fts = full_tracking_sequence(detector="ldmx-det-v15-8gev")
+
 # dropping truth_tracking to avoid extrapolation error messages
 # (and we don't need it, we want to see how the nominal setup works)
 p.sequence = [
     sim,
-    *full_tracking_sequence(detector="ldmx-det-v14-8gev").sequence
+    fts.digi_tagger,
+    fts.seeder_tagger,
+    fts.tracking_tagger,
+    fts.greedy_solver_tagger,
+    fts.gsf_tagger,
+    fts.digi_recoil,
+    fts.seeder_recoil,
+    fts.tracking_recoil,
+    fts.greedy_solver_recoil,
+    fts.gsf_recoil
 ]
