@@ -53,6 +53,6 @@ message(STATUS "Install track analyzer to: ${CMAKE_INSTALL_PREFIX}")
 find_package(ROOT 6.16 CONFIG REQUIRED)
 find_package(Boost REQUIRED COMPONENTS log)
 
-add_library(TrackAnalyzer SHARED chelsea-code/ldmx/EAT_Tracking/TrackAnalyzer.cxx)
+add_library(TrackAnalyzer SHARED TrackAnalyzer.cxx)
 target_link_libraries(TrackAnalyzer PUBLIC LDMXSW::Interface ROOT::Hist ROOT::TreePlayer ROOT::Physics Boost::log)
 install(TARGETS TrackAnalyzer LIBRARY DESTINATION lib)

@@ -1,2 +1,5 @@
-FROM ldmx/pro:v4.8.2
+FROM ldmx/pro:v4.9.3
 COPY CMakeLists.txt chelsea-code/ldmx/EAT_Tracking/TrackAnalyzer.cxx /code/
+RUN cmake -B /code/build -S /code/ -DCMAKE_INSTALL_PREFIX=${LDMX_SW_INSTALL} &&\
+    cmake --build /code/build --target install &&\
+    rm -r /code
